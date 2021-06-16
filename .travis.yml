@@ -1,0 +1,92 @@
+language: cpp
+
+sudo: required
+
+branches:
+  only:
+    - master
+
+matrix:
+  include:
+    # Coverity Scan (Linux Debug)
+    - os: linux
+      compiler: gcc
+      before_install:
+        - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - cmake
+        coverity_scan:
+          project:
+            name: "dlagrava/hydro_model"
+            description: "C++14 test of hydro_model"
+          notification_email: dlagrava@gmail.com
+          build_command_prepend: "cov-configure --comptype gcc --compiler g++-5 --template && cmake -DCMAKE_CXX_COMPILER=g++-5 -DGEN_DOCS=OFF ."
+          build_command: "cmake --build ."
+          branch_pattern: coverity_scan
+      if: branch = coverity_scan
+      before_script: echo "Coverity Scan"
+      script: echo "Coverity Scan"
+    # Code coverage (Linux Debug)
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+            - cmake
+            - lcov
+      before_script:
+        - mkdir -p build && cd build
+        - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=g++-5 -DBUILD_TESTS=ON -DENABLE_COVERAGE=ON -DGEN_DOCS=OFF ..
+      script:
+        - cmake --build . -- -j2
+        - cmake --build . --target coverage
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+      if: branch != coverity_scan
+    # Linux Release
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+            - cmake
+      env:
+        - MATRIX_EVAL="COMPILER=g++-5 && BUILD_TYPE=Release"
+      if: branch != coverity_scan
+    # OSX Debug
+    - os: osx
+      osx_image: xcode9.2 
+      compiler: clang
+      env:
+        - MATRIX_EVAL="COMPILER=clang++ && BUILD_TYPE=Debug"
+      if: branch != coverity_scan
+    # OSX Release
+    - os: osx
+      osx_image: xcode9.2 
+      compiler: clang
+      env:
+        - MATRIX_EVAL="COMPILER=clang++ && BUILD_TYPE=Release"
+      if: branch != coverity_scan
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+before_script:
+  - mkdir -p build && cd build
+  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_COMPILER=$COMPILER -DBUILD_TESTS=ON -DGEN_DOCS=OFF ..
+
+script:
+  - cmake --build . -- -j2 # Build the code
+  - ctest --output-on-failure
+  - sudo cmake --build . --target install # Install the necessary files
