@@ -54,6 +54,7 @@ endif (ENABLE_COVERAGE AND NOT CMAKE_CONFIGURATION_TYPES)
 
 set(LIBRARY_SOURCES
     src/input_utils.cpp
+    src/reach.cpp
 )
 
 add_library(hydro-model-lib ${LIBRARY_SOURCES}) # A library
