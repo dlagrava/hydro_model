@@ -1,8 +1,8 @@
-#include <hydro_model/config.hpp>
-#include <hydro_model/input_utils.hpp>
-
 #include <iostream>
 #include <string>
+
+#include <hydro_model/config.h>
+#include <hydro_model/input_utils.h>
 
 int main(int argc, char* argv[])
 {

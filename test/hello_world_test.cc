@@ -1,6 +1,6 @@
 #include "doctest.h"
 
-#include <hydro_model/input_utils.hpp>
+#include <hydro_model/input_utils.h>
 
 #include <iostream> // Needed in OSX builds for some weird reason.
                     // See https://github.com/onqtam/doctest/issues/126#issuecomment-381742003

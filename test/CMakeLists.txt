@@ -1,5 +1,5 @@
 set(TEST_SOURCES
-    hello_world_test.cpp
+    hello_world_test.cc
 )
 
 add_library(doctest INTERFACE)
