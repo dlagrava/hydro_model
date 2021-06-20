@@ -8,7 +8,7 @@ namespace hydro_model {
 /**
  * Internal representation of properties of a reach.
  *
- */ 
+ */
 class ReachProperties {
     public:
         ReachProperties();
@@ -18,16 +18,13 @@ class ReachProperties {
 
         // Getters
         float GetProperty(std::string property_name);
-        
+
 
     private:
         std::map<std::string, float> properties_;
-
-                
-        
 };
 
-/** 
+/**
 * Internal representation of a reach.
 * A reach is the basic geographical unit for the model.
 *
@@ -46,18 +43,14 @@ class Reach {
         // Setters
         void SetLatitude(float lat);
         void SetLongitude(float lon);
-        void AddUpstream(Reach& upstreamReach);
-        void AddDownstream(Reach& downstreamReach);
         void SetProperties(ReachProperties const& properties);
-        
+
     private:
         float latitude_; /*! Latitude of the reach */
         float longitude_; /*! Longitude of the reach*/
         long int reach_id_; /*! Reach ID (usually 8 numbers in NZ */
-        ReachProperties properties_;        
-        Reach* upstreams_;
-        Reach* downstreams_;        
+        ReachProperties properties_;
 };
-} // namespace hydro_model
 
+} // namespace hydro_model
 #endif // REACH_
