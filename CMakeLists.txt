@@ -10,10 +10,6 @@ set(Project-Name_VERSION "${Project-Name_VERSION_MAJOR}.${Project-Name_VERSION_M
 set(PROJ_NAME "\"Hydro_Model\"") # PROJECT_NAME is a predefined variable
 set(PROJECT_DESCRIPTION "\"C++14 version of a Hydro model\"")
 
-configure_file(include/hydro_model/config.h.in
-    ${CMAKE_BINARY_DIR}/include/hydro_model/config.h
-)
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -52,13 +48,17 @@ else (ENABLE_COVERAGE AND NOT CMAKE_CONFIGURATION_TYPES)
     endif(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif (ENABLE_COVERAGE AND NOT CMAKE_CONFIGURATION_TYPES)
 
-set(LIBRARY_SOURCES
-    src/input_utils.cc
-    src/reach.cc
-    src/river_network.cc
-)
+#set(LIBRARY_SOURCES
+#    src/input_utils.cc
+#    src/reach.cc
+#    src/river_network.cc
+#)
 
-add_library(hydro-model-lib ${LIBRARY_SOURCES}) # A library
+include_directories("include/hydro_model")
+
+file(GLOB LIBRARY_SOURCES "src/*.cc")
+
+add_library(hydro-model-lib ${LIBRARY_SOURCES}) # main library
 set_target_properties(hydro-model-lib PROPERTIES PREFIX "") # Remove the lib prefix
 target_include_directories(hydro-model-lib PUBLIC ${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)
 
@@ -66,7 +66,8 @@ target_include_directories(hydro-model-lib PUBLIC ${CMAKE_SOURCE_DIR}/include ${
 add_library(cpptoml INTERFACE)
 target_include_directories(cpptoml INTERFACE "${CMAKE_SOURCE_DIR}/third_party/cpptoml")
 
-add_executable(hydro-model src/hydro_model.cc) # The main executable
+# the main executable
+add_executable(hydro-model apps/hydro_model.cc) # The main executable
 target_link_libraries(hydro-model hydro-model-lib cpptoml) # Link our sources to the executable
 
 if (BUILD_TESTS)
@@ -88,8 +89,7 @@ install(TARGETS hydro-model-lib
 )
 
 # Install the project header files into the appropriate directory
-install(DIRECTORY include/ DESTINATION include PATTERN "config.h.in" EXCLUDE) # Install our main header files
-install(FILES ${CMAKE_BINARY_DIR}/include/hydro_model/config.h DESTINATION include/hydro_model) # Install our configuration file
+install(DIRECTORY include/ DESTINATION include PATTERN) # Install our main header files
 
 # Install the project's extra files
 install(FILES README.md LICENSE DESTINATION share/hydro_model)

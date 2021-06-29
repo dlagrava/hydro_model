@@ -1,7 +1,11 @@
 #ifndef RIVER_NETWORK_H_
 #define RIVER_NETWORK_H_
 
+#include <hydro_model/reach.h>
+#include <map>
+
 namespace hydro_model {
+
     class RiverNetwork
     {
         public:
@@ -17,3 +21,4 @@ namespace hydro_model {
     };
 }
 #endif // RIVER_NETWORK_H_
+
