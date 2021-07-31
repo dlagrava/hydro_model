@@ -39,16 +39,18 @@ class Reach {
         float GetLongitude();
         const Reach* GetUpstreams();
         const Reach* GetDownstreams();
+	float GetPropertyValue(std::string property_name);
 
         // Setters
         void SetLatitude(float lat);
         void SetLongitude(float lon);
         void SetProperties(ReachProperties const& properties);
+	void SetPropertyValue(std::string property_name, float value);
 
     private:
         float latitude_; /*! Latitude of the reach */
         float longitude_; /*! Longitude of the reach*/
-        long int reach_id_; /*! Reach ID (usually 8 numbers in NZ */
+        long int reach_id_; /*! Reach ID (usually 8 numbers in NZ) */
         ReachProperties properties_;
 };
 
