@@ -45,7 +45,7 @@ class Reach {
         void SetLatitude(float lat);
         void SetLongitude(float lon);
         void SetProperties(ReachProperties const& properties);
-	void SetPropertyValue(std::string property_name, float value);
+        void SetPropertyValue(std::string property_name, float value);
 
     private:
         float latitude_; /*! Latitude of the reach */
