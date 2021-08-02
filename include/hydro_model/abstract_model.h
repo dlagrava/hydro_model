@@ -2,6 +2,9 @@
 #define ABSTRACTMODEL_H
 
 #include <hydro_model/reach.h>
+#include <hydro_model/river_network.h>
+#include <vector>
+#include <string>
 
 namespace hydro_model {
 
@@ -12,7 +15,7 @@ class AbstractOperation {
  */
 public:
     AbstractOperation();
-    virtual ApplyOperation(Reach &reach) = 0;
+    virtual bool ApplyOperation(Reach &reach) = 0;
     virtual bool CanApplyOperation(Reach &reach) = 0;
 private:
     std::string name;
@@ -28,7 +31,7 @@ class AbstractModel
     public:
         AbstractModel();
         virtual ~AbstractModel();
-        virtual ApplyOperations(RiverNetwork &network) = 0;
+        virtual bool ApplyOperations(RiverNetwork &network) = 0;
 
     protected:
 
