@@ -27,6 +27,21 @@ class ReachProperties {
         std::map<std::string, float> properties_;
 };
 
+class ReachState {
+public:
+    ReachState();
+    virtual ~ReachState();
+
+    ReachState Clone();
+    void Initialize();
+    void AddStorage(std::string storage_name);
+    void AddFlux(std::string flux_name);
+
+private:
+    std::map<std::string, T> storages_;
+    std::map<std::string, T> fluxes_;
+};
+
 /**
 * Internal representation of a reach.
 * A reach is the basic geographical unit for the model.
@@ -42,19 +57,25 @@ class Reach {
         float GetLongitude();
         const Reach* GetUpstreams();
         const Reach* GetDownstreams();
-	float GetPropertyValue(std::string property_name);
+        float GetPropertyValue(std::string property_name);
+        ReachState& GetReachState();
 
         // Setters
         void SetLatitude(float lat);
         void SetLongitude(float lon);
         void SetProperties(ReachProperties const& properties);
         void SetPropertyValue(std::string property_name, float value);
+        void UpdateReachState(ReachState& new_state);
+
+        // Misc.
+
 
     private:
         float latitude_; /*! Latitude of the reach */
         float longitude_; /*! Longitude of the reach*/
         long int reach_id_; /*! Reach ID (usually 8 numbers in NZ) */
         ReachProperties properties_;
+        ReachState state;
 };
 
 } // namespace hydro_model

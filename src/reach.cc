@@ -29,7 +29,7 @@ float ReachProperties::GetProperty(std::string property_name)
 }
 
 bool ReachProperties::HasProperty(std::string property_name){
-    return properties_.contains(property_name);
+    return properties_.find(property_name) != properties_.end();
 }
 
 } // namespace hydro_model

@@ -23,21 +23,22 @@ private:
 
 };
 
+
 class AbstractModel
 {
- /**
- * Abstraction for a model, which modifies each state of a RiverNetwork
- * by applying the AbstractOperations defined.
- */
-    public:
-        AbstractModel();
-        virtual ~AbstractModel();
-        virtual bool ApplyOperations(RiverNetwork &network) = 0;
-        auto AddOperation(AbstractOperation *operation);
-    protected:
+/**
+* Abstraction for a model, which modifies each state of a RiverNetwork
+* by applying a list of AbstractOperations.
+*/
+public:
+    AbstractModel();
+    virtual ~AbstractModel();
+    virtual bool ApplyOperations(RiverNetwork &network) = 0;
+    auto AddOperation(AbstractOperation *operation);
+protected:
 
-    private:
-        std::vector<AbstractOperation*> operations_;
+private:
+    std::vector<AbstractOperation*> operations_;
 
 };
 
