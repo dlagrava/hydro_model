@@ -17,6 +17,7 @@ public:
     AbstractOperation();
     virtual bool ApplyOperation(Reach &reach) = 0;
     virtual bool CanApplyOperation(Reach &reach) = 0;
+
 private:
     std::string name;
 
@@ -32,7 +33,7 @@ class AbstractModel
         AbstractModel();
         virtual ~AbstractModel();
         virtual bool ApplyOperations(RiverNetwork &network) = 0;
-
+        auto AddOperation(AbstractOperation *operation);
     protected:
 
     private:

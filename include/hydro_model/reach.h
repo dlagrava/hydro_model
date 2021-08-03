@@ -19,6 +19,9 @@ class ReachProperties {
         // Getters
         float GetProperty(std::string property_name);
 
+        // Test to see if it contains the property
+        bool HasProperty(std::string property_name);
+
 
     private:
         std::map<std::string, float> properties_;
