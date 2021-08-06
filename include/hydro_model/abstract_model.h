@@ -15,6 +15,7 @@ class AbstractOperation {
  */
 public:
     AbstractOperation();
+    virtual ~AbstractOperation();
     virtual bool ApplyOperation(Reach &reach) = 0;
     virtual bool CanApplyOperation(Reach &reach) = 0;
 
@@ -23,11 +24,10 @@ private:
 
 };
 
-
 class AbstractModel
 {
 /**
-* Abstraction for a model, which modifies each state of a RiverNetwork
+* Abstraction for a model, which modifies a whole RiverNetwork
 * by applying a list of AbstractOperations.
 */
 public:

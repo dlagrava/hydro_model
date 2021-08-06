@@ -38,8 +38,8 @@ public:
     void AddFlux(std::string flux_name);
 
 private:
-    std::map<std::string, T> storages_;
-    std::map<std::string, T> fluxes_;
+    std::map<std::string, double> storages_;
+    std::map<std::string, double> fluxes_;
 };
 
 /**
