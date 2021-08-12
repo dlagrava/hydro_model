@@ -24,6 +24,16 @@ private:
 
 };
 
+class IdentityOperation : AbstractOperation {
+/**
+ * Simple operation that doesn't do anything to a Reach. It is
+ * used to test things.
+ */
+    virtual bool ApplyOperation(Reach &reach);
+    virtual bool CanApplyOperation(Reach &reach);
+
+};
+
 class AbstractModel
 {
 /**

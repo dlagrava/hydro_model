@@ -63,12 +63,12 @@ class Reach {
         // Setters
         void SetLatitude(float lat);
         void SetLongitude(float lon);
-        void SetProperties(ReachProperties const& properties);
+        void SetProperties(ReachProperties &properties);
         void SetPropertyValue(std::string property_name, float value);
         void UpdateReachState(ReachState& new_state);
 
         // Misc.
-
+        const std::string ToString();
 
     private:
         float latitude_; /*! Latitude of the reach */
