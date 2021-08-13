@@ -34,6 +34,17 @@ class IdentityOperation : AbstractOperation {
 
 };
 
+
+class TopNetOperation : AbstractOperation {
+public:
+    virtual bool ApplyOperation(Reach &reach) = 0;
+    virtual bool CanApplyOperation(Reach &reach);
+private:
+    std::vector<std::string> topnet_min_properties_;
+
+};
+
+
 class AbstractModel
 {
 /**

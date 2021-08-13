@@ -58,6 +58,7 @@ class Reach {
         const Reach* GetUpstreams();
         const Reach* GetDownstreams();
         float GetPropertyValue(std::string property_name);
+        ReachProperties& GetReachProperties();
         ReachState& GetReachState();
 
         // Setters

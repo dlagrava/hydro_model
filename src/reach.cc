@@ -20,6 +20,10 @@ const std::string Reach::ToString(){
     return std::string("Reach");
 }
 
+ReachProperties& Reach::GetReachProperties(){
+    return properties_;
+}
+
 /**
  * Get a reach property from ReachProperties
  * This method will throw an out of range exception

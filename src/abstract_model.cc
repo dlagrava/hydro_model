@@ -18,11 +18,25 @@ AbstractModel::~AbstractModel()
 {}
 
 bool IdentityOperation::CanApplyOperation(Reach &reach){
+    std::cout << reach.ToString() << std::endl;
     return true;
 }
 
 bool IdentityOperation::ApplyOperation(Reach &reach){
+    std::cout << reach.ToString() << std::endl;
     return true;
 }
+
+bool TopNetOperation::CanApplyOperation(Reach &reach){
+    ReachProperties& reach_properties = reach.GetReachProperties();
+    for (auto& property : topnet_min_properties_){
+        if (! reach_properties.HasProperty(property)){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 
 } // namespace hydro_model
