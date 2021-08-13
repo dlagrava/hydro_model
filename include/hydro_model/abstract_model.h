@@ -15,7 +15,6 @@ class AbstractOperation {
  */
 public:
     AbstractOperation();
-    virtual ~AbstractOperation();
     virtual bool ApplyOperation(Reach &reach) = 0;
     virtual bool CanApplyOperation(Reach &reach) = 0;
 
@@ -37,6 +36,7 @@ class IdentityOperation : AbstractOperation {
 
 class TopNetOperation : AbstractOperation {
 public:
+    TopNetOperation();
     virtual bool ApplyOperation(Reach &reach) = 0;
     virtual bool CanApplyOperation(Reach &reach);
 private:

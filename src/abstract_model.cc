@@ -8,9 +8,6 @@ namespace hydro_model {
 AbstractOperation::AbstractOperation()
 {}
 
-AbstractOperation::~AbstractOperation()
-{}
-
 AbstractModel::AbstractModel()
 {}
 
@@ -25,6 +22,10 @@ bool IdentityOperation::CanApplyOperation(Reach &reach){
 bool IdentityOperation::ApplyOperation(Reach &reach){
     std::cout << reach.ToString() << std::endl;
     return true;
+}
+
+TopNetOperation::TopNetOperation(){
+    topnet_min_properties_ = {"topmodf", "topmodn", "K0", "v"};
 }
 
 bool TopNetOperation::CanApplyOperation(Reach &reach){
